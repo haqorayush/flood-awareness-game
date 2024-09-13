@@ -25,7 +25,6 @@ const Quiz = () => {
     }
   }, [difficulty]);
 
-
   // Sample questions for different difficulties
   const questions = {
     easy: [
@@ -422,15 +421,24 @@ const Quiz = () => {
                 onClick={() => handleAnswerOptionClick(option.isCorrect, index)}
                 disabled={answered}
                 className={`
-                  ${answered && index === correctAnswerIndex ? 'correct-answer' : ''}
-                  ${answered && index === selectedOptionIndex && !option.isCorrect ? 'incorrect-answer' : ''}
+                  ${answered && index === correctAnswerIndex ? 'correct' : ''}
+                  ${answered && index === selectedOptionIndex && index !== correctAnswerIndex ? 'incorrect' : ''}
                 `}
+                style={{
+                  backgroundColor: answered
+                    ? index === correctAnswerIndex
+                      ? 'green'
+                      : index === selectedOptionIndex
+                      ? 'red'
+                      : 'blue'
+                    : 'blue',
+                  color: 'white',
+                }}
               >
                 {option.answerText}
               </button>
             ))}
           </div>
-          {feedbackMessage && <p>{feedbackMessage}</p>}
         </motion.div>
       ) : null}
     </div>
